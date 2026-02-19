@@ -7,7 +7,7 @@
 body{
     margin:0;
     height:100vh;
-    background:linear-gradient(to top,#f8e1e7,#ffffff);
+    background:linear-gradient(to top,#f8d7da,#fff);
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -19,22 +19,22 @@ body{
 /* Texto */
 h1{
     margin-top:20px;
-    font-size:40px;
+    font-size:38px;
     color:#d81b60;
     animation:latido 1.5s infinite;
 }
 
 @keyframes latido{
     0%{transform:scale(1);}
-    50%{transform:scale(1.08);}
+    50%{transform:scale(1.1);}
     100%{transform:scale(1);}
 }
 
 /* Árbol */
 .tree{
     position:relative;
-    width:300px;
-    height:350px;
+    width:350px;
+    height:400px;
 }
 
 /* Tronco */
@@ -43,31 +43,65 @@ h1{
     bottom:0;
     left:50%;
     transform:translateX(-50%);
-    width:30px;
-    height:120px;
+    width:40px;
+    height:150px;
     background:#8B4513;
-    border-radius:10px;
+    border-radius:20px;
 }
 
-/* Corazones */
+/* Copa */
+.crown{
+    position:absolute;
+    bottom:120px;
+    left:50%;
+    transform:translateX(-50%);
+    width:280px;
+    height:220px;
+}
+
+/* Corazones del árbol */
 .heart{
     position:absolute;
-    color:red;
-    font-size:20px;
-    animation:flotar 4s ease-in-out infinite;
+    font-size:22px;
+    animation:flotar 3s ease-in-out infinite;
 }
 
 @keyframes flotar{
     0%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
+    50%{transform:translateY(-8px);}
     100%{transform:translateY(0);}
+}
+
+/* Corazones cayendo */
+.falling{
+    position:absolute;
+    top:-50px;
+    font-size:18px;
+    animation:fall linear infinite;
+}
+
+@keyframes fall{
+    to{ transform:translateY(110vh); }
+}
+
+/* Flores abajo */
+.flower{
+    position:absolute;
+    bottom:0;
+    font-size:25px;
+    animation:grow 3s ease-in-out infinite alternate;
+}
+
+@keyframes grow{
+    from{ transform:scale(0.8); }
+    to{ transform:scale(1.2); }
 }
 
 /* Botón */
 button{
-    margin-top:20px;
+    margin-top:15px;
     padding:12px 30px;
-    font-size:18px;
+    font-size:16px;
     border:none;
     border-radius:25px;
     background:#ff4e8a;
@@ -88,6 +122,7 @@ button:hover{
 
 <div class="tree">
     <div class="trunk"></div>
+    <div class="crown" id="crown"></div>
 </div>
 
 <h1>TE AMO MOCHI ❤️</h1>
@@ -101,22 +136,44 @@ button:hover{
 </audio>
 
 <script>
-const tree = document.querySelector(".tree");
+const crown = document.getElementById("crown");
 
-/* Crear copa de corazones */
-for(let i=0;i<120;i++){
-    let heart = document.createElement("div");
+/* Crear copa con forma circular */
+for(let i=0;i<140;i++){
+    let heart=document.createElement("div");
     heart.className="heart";
     heart.innerHTML="❤️";
 
-    let x = Math.random()*200 + 50;
-    let y = Math.random()*180;
+    let angle=Math.random()*2*Math.PI;
+    let radius=100*Math.sqrt(Math.random());
+    let x=140 + radius*Math.cos(angle);
+    let y=100 + radius*Math.sin(angle);
 
-    heart.style.left = x + "px";
-    heart.style.top = y + "px";
-    heart.style.animationDuration = (2+Math.random()*3)+"s";
+    heart.style.left=x+"px";
+    heart.style.top=y+"px";
+    heart.style.animationDuration=(2+Math.random()*2)+"s";
 
-    tree.appendChild(heart);
+    crown.appendChild(heart);
+}
+
+/* Corazones cayendo */
+for(let i=0;i<15;i++){
+    let fall=document.createElement("div");
+    fall.className="falling";
+    fall.innerHTML="🍃";
+    fall.style.left=Math.random()*100+"%";
+    fall.style.animationDuration=(4+Math.random()*4)+"s";
+    document.body.appendChild(fall);
+}
+
+/* Flores abajo */
+for(let i=0;i<12;i++){
+    let flower=document.createElement("div");
+    flower.className="flower";
+    flower.innerHTML="🌸";
+    flower.style.left=Math.random()*100+"%";
+    flower.style.animationDelay=(Math.random()*3)+"s";
+    document.body.appendChild(flower);
 }
 </script>
 

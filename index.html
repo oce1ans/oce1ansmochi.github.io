@@ -2,9 +2,11 @@
 <html>
 <head>
 <title>Para Dulce ❤️</title>
+
 <style>
 body{
     margin:0;
+    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -12,25 +14,81 @@ body{
     background:linear-gradient(135deg,#ff4e8a,#ff9ac2);
     font-family:Arial, sans-serif;
 }
+
+/* Texto principal */
 h1{
-    font-size:70px;
+    font-size:45px;
     color:white;
-    animation:latido 1s infinite;
+    text-align:center;
+    animation:latido 1.5s infinite;
+    z-index:2;
 }
+
+/* Latido */
 @keyframes latido{
     0%{transform:scale(1);}
-    50%{transform:scale(1.2);}
+    50%{transform:scale(1.1);}
     100%{transform:scale(1);}
+}
+
+/* Flores laterales */
+.flor{
+    position:absolute;
+    font-size:40px;
+    animation:flotar 6s infinite ease-in-out;
+}
+
+.flor.left{
+    left:20px;
+}
+
+.flor.right{
+    right:20px;
+}
+
+/* Corazones flotando */
+.corazon{
+    position:absolute;
+    bottom:-50px;
+    font-size:25px;
+    animation:subir 8s infinite linear;
+}
+
+@keyframes subir{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-110vh);}
+}
+
+@keyframes flotar{
+    0%{top:10%;}
+    50%{top:70%;}
+    100%{top:10%;}
 }
 </style>
 </head>
+
 <body>
+
+<div class="flor left">🌸</div>
+<div class="flor right">🌸</div>
 
 <h1>TE AMO MUCHO MI MOCHI HERMOSA ❤️</h1>
 
-<audio autoplay loop>
+<div class="corazon" style="left:10%;">❤️</div>
+<div class="corazon" style="left:30%; animation-delay:2s;">❤️</div>
+<div class="corazon" style="left:50%; animation-delay:4s;">❤️</div>
+<div class="corazon" style="left:70%; animation-delay:1s;">❤️</div>
+<div class="corazon" style="left:90%; animation-delay:3s;">❤️</div>
+
+<audio id="musica" loop>
     <source src="cancion.mp3" type="audio/mpeg">
 </audio>
+
+<script>
+document.body.addEventListener("click", function() {
+    document.getElementById("musica").play();
+}, { once: true });
+</script>
 
 </body>
 </html>

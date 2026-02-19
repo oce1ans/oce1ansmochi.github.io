@@ -7,20 +7,27 @@
 body{
     margin:0;
     height:100vh;
-    background:linear-gradient(to top,#f8d7da,#fff);
+    overflow:hidden;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
     font-family:Arial, sans-serif;
-    overflow:hidden;
+    background:linear-gradient(to top,#ff9a9e,#fad0c4,#fbc2eb);
+    animation:sky 10s infinite alternate;
 }
 
-/* Texto */
+/* Cielo animado */
+@keyframes sky{
+    from{filter:brightness(1);}
+    to{filter:brightness(1.1);}
+}
+
+/* Texto principal */
 h1{
     margin-top:20px;
     font-size:38px;
-    color:#d81b60;
+    color:#c2185b;
     animation:latido 1.5s infinite;
 }
 
@@ -30,6 +37,15 @@ h1{
     100%{transform:scale(1);}
 }
 
+/* Mensaje secreto */
+#mensaje{
+    opacity:0;
+    margin-top:10px;
+    font-size:22px;
+    color:#880e4f;
+    transition:2s;
+}
+
 /* Árbol */
 .tree{
     position:relative;
@@ -37,7 +53,6 @@ h1{
     height:400px;
 }
 
-/* Tronco */
 .trunk{
     position:absolute;
     bottom:0;
@@ -45,11 +60,10 @@ h1{
     transform:translateX(-50%);
     width:40px;
     height:150px;
-    background:#8B4513;
+    background:#6d4c41;
     border-radius:20px;
 }
 
-/* Copa */
 .crown{
     position:absolute;
     bottom:120px;
@@ -59,7 +73,7 @@ h1{
     height:220px;
 }
 
-/* Corazones del árbol */
+/* Corazones */
 .heart{
     position:absolute;
     font-size:22px;
@@ -72,7 +86,7 @@ h1{
     100%{transform:translateY(0);}
 }
 
-/* Corazones cayendo */
+/* Hojas cayendo */
 .falling{
     position:absolute;
     top:-50px;
@@ -84,7 +98,7 @@ h1{
     to{ transform:translateY(110vh); }
 }
 
-/* Flores abajo */
+/* Flores */
 .flower{
     position:absolute;
     bottom:0;
@@ -95,6 +109,18 @@ h1{
 @keyframes grow{
     from{ transform:scale(0.8); }
     to{ transform:scale(1.2); }
+}
+
+/* Brillitos */
+.sparkle{
+    position:absolute;
+    font-size:14px;
+    animation:blink 2s infinite alternate;
+}
+
+@keyframes blink{
+    from{opacity:0.3;}
+    to{opacity:1;}
 }
 
 /* Botón */
@@ -126,6 +152,7 @@ button:hover{
 </div>
 
 <h1>TE AMO MOCHI ❤️</h1>
+<div id="mensaje">Eres lo más hermoso que me ha pasado 💌</div>
 
 <button onclick="document.getElementById('musica').play()">
 ▶ Reproducir Nuestra Canción
@@ -138,7 +165,7 @@ button:hover{
 <script>
 const crown = document.getElementById("crown");
 
-/* Crear copa con forma circular */
+/* Copa redonda */
 for(let i=0;i<140;i++){
     let heart=document.createElement("div");
     heart.className="heart";
@@ -156,7 +183,7 @@ for(let i=0;i<140;i++){
     crown.appendChild(heart);
 }
 
-/* Corazones cayendo */
+/* Hojas cayendo */
 for(let i=0;i<15;i++){
     let fall=document.createElement("div");
     fall.className="falling";
@@ -166,7 +193,7 @@ for(let i=0;i<15;i++){
     document.body.appendChild(fall);
 }
 
-/* Flores abajo */
+/* Flores */
 for(let i=0;i<12;i++){
     let flower=document.createElement("div");
     flower.className="flower";
@@ -175,6 +202,21 @@ for(let i=0;i<12;i++){
     flower.style.animationDelay=(Math.random()*3)+"s";
     document.body.appendChild(flower);
 }
+
+/* Brillitos */
+for(let i=0;i<20;i++){
+    let sparkle=document.createElement("div");
+    sparkle.className="sparkle";
+    sparkle.innerHTML="✨";
+    sparkle.style.left=Math.random()*100+"%";
+    sparkle.style.top=Math.random()*100+"%";
+    document.body.appendChild(sparkle);
+}
+
+/* Mostrar mensaje después de 5 segundos */
+setTimeout(()=>{
+    document.getElementById("mensaje").style.opacity="1";
+},5000);
 </script>
 
 </body>
